@@ -1,0 +1,889 @@
+/* colors
+
+Primary/Accent: Neon Cyan         #00E5FF
+
+Secondary Accent: Magenta         #FF007F
+
+------------Dark Mode:---------
+
+Background: Deep Space Purple         #0B0914
+
+Surface/Cards: Dark Indigo         #161224
+
+Text: Off-White         #E0E0E0
+
+----------Light Mode:-------------
+
+Background: Very Pale Lavender         #F4F3F8
+
+Surface/Cards: White         #FFFFFF
+
+Text: Dark Slate         #1A1A24
+
+
+
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+
+
+:root {
+    --primary: #00E5FF;
+    --Secondary: #FF007F;
+
+
+    --DarkBackground: #0B0914;
+    --DarkSurface: #161224;
+    --DarkText: #E0E0E0;
+
+    --ligthBackground: #F4F3F8;
+    --lightsurface: #FFFFFF;
+    --lighttext: #1A1A24;
+}
+
+body {
+    background-color: var(--ligthBackground);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    font-family: "Poppins", sans-serif;
+
+
+
+}
+
+body.dark-theme {
+    background-color: var(--DarkBackground);
+    color: var(--DarkText);
+
+}
+
+header {
+    position: fixed;
+    top: 20px; /* Floats off the top edge */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%; 
+    max-width: 1400px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 100;
+    
+    /* Frosted Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 40px; /* Sleek pill shape */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+}
+
+body.dark-theme header {
+    background: rgba(22, 18, 36, 0.65); /* Dark surface with transparency */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+    color: var(--primary);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.3); /* Subtle neon glow */
+    margin-right: 30px;
+}
+
+
+
+/* @keyframes type{
+    from{
+        width: 0;
+    }
+} */
+
+
+
+header .mode>button {
+    background: none;
+    border: none;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+    margin-right: auto; /* Pushes the links to the left, icons to the right */
+}
+
+nav ul a {
+    position: relative;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--lighttext);
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+body.dark-theme nav ul a {
+    color: var(--DarkText);
+}
+
+nav ul a:hover {
+    color: var(--primary);
+}
+
+nav ul a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px var(--primary);
+}
+
+nav ul a:hover::after {
+    width: 100%; /* Line expands on hover */
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+a {
+    text-decoration: none;
+
+
+}
+
+.mode {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+}
+
+/* Hamburger Icon (Hidden on Desktop) */
+.hamburger {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--lighttext);
+    z-index: 101; /* Keeps it above the sliding menu */
+}
+
+body.dark-theme .hamburger {
+    color: var(--DarkText);
+}
+
+
+/* Hide the mobile search bar on Desktop/Laptops */
+.mobile-search {
+    display: none;
+}
+
+
+.searchBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Keeps the button on the right */
+    height: 35px;
+    width: 35px; /* The parent stays small so it NEVER pushes other icons */
+}
+
+.searchBar input {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 200px; /* Starts small hidden under the button */
+    opacity: 1;
+    /* border: none; */
+    /* outline: none; */
+    background: transparent;
+    border-radius: 30px;
+    padding: 0 40px 0 15px; /* Leaves room on the right for the search icon */
+    color: var(--lighttext);
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+#searchBar-Btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2; /* Keeps the button clickable on top of the input */
+}
+
+/* When active, ONLY the input expands to the left */
+.searchBar.active input {
+    width: 210px; 
+    opacity: 1;
+    background-color: white;
+    border: 1px solid black;
+}
+
+body.dark-theme .searchBar input {
+    border: 1px solid var(--primary);
+    background-color: var(--DarkSurface);
+    color: var(--DarkText);
+}
+
+
+
+
+
+body.dark-theme a {
+    color: var(--DarkText);
+    transition: all 0.3 ease;
+}
+
+/* Herosection */
+main {
+    width: 100%;
+    margin-top: 100px;
+}
+
+
+
+body.dark-theme main {
+    width: 100%;
+    margin-top: 100px;
+}
+
+.herosection {
+    position: relative;
+    height: 85vh;
+    width: 90%;
+    background: rgba(0, 0, 0, 0.048);
+    border-radius: 12px;
+    margin: 0 auto 0 auto;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.466);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+
+
+}
+
+body.dark-theme .herosection {
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.288);
+    margin: 0 auto;
+    width: 90%;
+}
+
+#HS-writeUp {
+    position: absolute;
+    bottom: 15%;
+    left: 25px;
+
+
+}
+
+#HS-writeUp h1 {
+    font: 900;
+    font-size: 40px;
+    color: white;
+
+}
+
+
+#HS-writeUp p {
+    padding: 12px 12px 12px 0;
+    font: 800;
+    font-size: 20px;
+    color: white;
+}
+
+.hero-section-btn {
+    border-radius: 10px;
+    padding: 10px 12px;
+    width: 100px;
+    color: var(--lighttext);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    height: 40px;
+    transition: all 0.3 ease;
+}
+
+body.dark-theme .hero-section-btn {
+    color: var(--DarkText);
+}
+
+#hero-section-btnII {
+    background-color: var(--primary);
+    border: 1px solid black;
+}
+
+#hero-section-btnI {
+    border: 1px solid var(--primary);
+    background-color: white;
+
+}
+
+body.dark-theme #hero-section-btnII {
+    background-color: var(--Secondary);
+}
+
+body.dark-theme #hero-section-btnI {
+    border: 1px solid var(--Secondary);
+    background-color: transparent;
+}
+
+.sliders {
+    height: auto;
+    margin: 100px auto 0 auto;
+    width: 90%;
+}
+
+.slider-container {
+    position: relative;
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    height: 50px;
+    width: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.dark-theme .scroll-btn {
+    background-color: rgba(255, 255, 255, 0.288);
+    color: black;
+    opacity: 0;
+}
+
+.slider-container:hover .scroll-btn {
+    opacity: 1;
+}
+
+.left-arrow {
+    left: 0;
+}
+
+.right-arrow {
+    right: 0;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slider-container h3 {
+    color: var(--lighttext);
+    font-weight: 800;
+    font-size: 23px;
+}
+
+body.dark-theme .slider-container h3 {
+    color: var(--DarkText);
+}
+
+.slider-movie-container {
+    display: flex;
+    margin-bottom: 25px;
+    gap: 20px;
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+}
+
+/* .slider-movie-container::-webkit-scrollbar {
+    display: none;
+}
+.slider-movie-container .movie-card:first-child:hover {
+    transform-origin: left center;
+}
+
+.slider-movie-container .movie-card:last-child:hover {
+    transform-origin: right center;
+} */
+.movie-card {
+
+
+    width: 150px;
+    min-width: 150px;
+    height: 225px;
+    border: 2px solid black;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    /* Dark semi-transparent background */
+    color: white;
+    padding: 15px;
+
+    /* Hide it by default and push it down slightly */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+
+    /* Layout for the text and buttons */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* When the user hovers over the movie-card, target the card-info inside it */
+.movie-card:hover .card-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Quick styling for the title and buttons */
+.card-info h4 {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Adds '...' if the title is too long */
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.play-btn {
+    background-color: var(--primary);
+}
+
+.add-btn {
+    background-color: white;
+    color: black;
+}
+
+
+.movie-card:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.274);
+
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+
+
+
+}
+
+footer {
+    background-color: var(--DarkBackground);
+    display: flex;
+    gap: 100px;
+    height: auto;
+    padding: 40px 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+    color: var(--DarkText);
+    font-weight: 900;
+
+}
+
+body.dark-theme footer {
+    background-color: var(--ligthBackground);
+    color: var(--lighttext);
+}
+
+.footer-sectionI {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.icons-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.footer-sectionII {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footeri {
+    display: flex;
+    gap: 50px;
+
+}
+
+body.dark-theme .icons-container i {
+    color: #0B0914;
+
+
+
+}
+
+.icons-container {
+    display: flex;
+    gap: 10px;
+}
+
+.mode {
+    margin-left: 100px;
+    transition: all 0.3s ease;
+}
+
+.mode>button {
+    background: none;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+i {
+    font-size: 20px;
+    transition: all 0.3 ease;
+}
+
+body.dark-theme i {
+    color: white;
+}
+
+
+/* =========================================
+   HAMBURGER MENU & RESPONSIVE DESIGN
+   ========================================= */
+
+/* Hide hamburger on desktop */
+.hamburger {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--lighttext);
+    transition: color 0.3s ease;
+}
+
+body.dark-theme .hamburger {
+    color: var(--DarkText);
+}
+
+/* Tablets and Laptops */
+@media (max-width: 992px) {
+    header {
+        padding: 0 20px;
+        gap: 30px;
+    }
+    nav {
+        gap: 15px;
+    }
+}
+
+/* Tablets & Mobile: Activate Hamburger Menu */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; /* Show hamburger icon */
+    }
+
+    nav {
+        justify-content: flex-end; /* Push icons to the right */
+    }
+
+    /* Turn the UL into a hidden side menu */
+    nav ul {
+        position: fixed;
+        top: 70px; /* Right below the header */
+        right: -100%; /* Hide off-screen by default */
+        width: 250px;
+        height: calc(100vh - 70px);
+        background-color: var(--ligthBackground);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+        gap: 30px;
+        transition: right 0.4s ease-in-out; /* Smooth sliding animation */
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 99;
+    }
+
+    /* Dark mode for the side menu */
+    body.dark-theme nav ul {
+        background-color: var(--DarkSurface);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* The class JavaScript will add to slide the menu in */
+    nav ul.active {
+        right: 0;
+    }
+    
+    .footeri {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 22px;
+        margin-right: auto; /* Pushes everything else to the right */
+    }
+
+    .nav-icons {
+        gap: 12px;
+    }
+
+    .herosection {
+        height: 60vh;
+    }
+
+    #HS-writeUp h1 {
+        font-size: 28px;
+    }
+
+    .scroll-btn {
+        display: none !important; /* Hide scroll buttons for touch */
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .footer-sectionI {
+        align-items: center;
+    }
+    
+    .footeri {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+
+
+
+/* Laptops and Large Tablets */
+@media (max-width: 992px) {
+    header {
+        width: 95%;
+        padding: 0 25px;
+    }
+    nav ul {
+        gap: 15px;
+    }
+    nav ul a {
+        font-size: 14px;
+    }
+}
+
+/* Tablets & Mobile Menu Trigger */
+@media (max-width: 768px) {
+    header {
+        top: 15px;
+        height: 65px;
+        padding: 0 20px;
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger */
+    }
+
+    /* Turn links into a full-height frosted glass side menu */
+    nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        height: 100vh;
+        background: rgba(244, 243, 248, 0.95);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin: 0;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+        z-index: 99; 
+    }
+
+    body.dark-theme nav ul {
+        background: rgba(11, 9, 20, 0.95);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Triggered by your index.js hamburger click */
+    nav ul.active {
+        right: 0; 
+    }
+
+    /* Make mobile links bigger and bolder */
+    nav ul a {
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .nav-icons {
+        margin-right: 20px; 
+    }
+    .nav-icons .searchBar {
+        display: none;
+}
+
+.mobile-search {
+        display: flex;
+        width: 85%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Make the mobile search bar permanently expanded */
+    .mobile-search .searchBar {
+        width: 100%;
+    }
+
+    .mobile-search .searchBar input {
+        width: 100%;
+        opacity: 1; /* Always visible */
+        padding: 0 40px 0 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--primary);
+        border-radius: 30px;
+        color: var(--lighttext);
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark-theme .mobile-search .searchBar input {
+        background-color: rgba(22, 18, 36, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--DarkText);
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Fix for the Search Button/Icon inside the mobile menu */
+    .mobile-search .searchBar button {
+        position: absolute;
+        right: 5px; /* Pushes the icon to the right side of the input */
+        background: transparent;
+        border: none;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 2; /* Keeps the button clickable on top of the input */
+    }
+
+    /* Adjust the magnifying glass icon color */
+    .mobile-search .searchBar button i {
+        color: var(--lighttext);
+        font-size: 15px;
+    }
+
+    /* Adjust icon color for dark mode */
+    body.dark-theme .mobile-search .searchBar button i {
+        color: var(--DarkText);
+    }
+
+}
+
+/* Phones */
+@media (max-width: 600px) {
+    header {
+        top: 10px;
+        width: 96%;
+        padding: 0 15px;
+        height: 60px;
+        border-radius: 30px;
+    }
+
+    header h1 {
+        font-size: 20px;
+        margin-right: 15px;
+    }
+
+    .nav-icons {
+        gap: 12px;
+        margin-right: 12px;
+    }
+    
+    .nav-icons i, .mode i {
+        font-size: 18px;
+    }
+}

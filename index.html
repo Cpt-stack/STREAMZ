@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>StreamZ</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>StreamZ</h1>
+        <nav>
+            <i class="fa-solid fa-bars hamburger" id="hamburger-menu"></i>
+
+            <ul id="nav-menu">
+
+                <li class="mobile-search">
+                    <div class="searchBar">
+                        <input type="text" placeholder="Search StreamZ...">
+                        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </li>
+
+                <li><a href="">Home</a></li>
+                <li><a href="">Series</a></li>
+                <li><a href="">Films</a></li>
+                <li><a href="">Games</a></li>
+                <li><a href="">New & Popular</a></li>
+                <li><a href="">My List</a></li>
+            </ul>
+
+            <div class="nav-icons">
+
+                <div class="searchBar">
+                    <input type="text" id="searchBarInput"> <button id="searchBar-Btn"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+
+                <i class="fa-regular fa-bell"></i>
+                <i class="fa-regular fa-user"></i>
+            </div>
+        </nav>
+
+        <div class="mode">
+
+            <button id="button-mode"> <i class="fa-solid fa-moon"></i></button>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="herosection" id="hero-board">
+            <!--  <pre>For The logo </pre> -->
+
+            <div>
+
+                <!-- <img src="/Capture001.png" alt=""> -->
+
+                <div id="HS-writeUp">
+                    <h1 id="hero-title">
+                        MOVIE <br> NAME
+                    </h1>
+
+                    <div class="hero-section-details">
+                        <p id="hero-desc"> genre * year of release * city * views </p>
+                        <button class="hero-section-btn" id="hero-section-btnI">▶Play</button>
+                        <button class="hero-section-btn" id="hero-section-btnII">More info</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sliders">
+            <div class="slider-container">
+                <h3>We think you'll love these</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="popular-slider">
+
+                    <!-- 
+
+                    <div class="movie-card"> <img src="" alt="">
+                    </div>
+
+                    <div class="movie-card"> <img src="" alt="">
+                    </div>
+
+                    <div class="movie-card"> <img src="" alt="">
+                    </div>
+
+                    <div class="movie-card"> <img src="" alt="">
+                    </div>
+
+                    <div class="movie-card"> <img src="" alt="">
+                    </div>
+
+                    <div class="movie-card"> <img src="" alt="">
+                    </div>
+
+                    <div class="movie-card"> <img src="" alt="">
+                    </div> -->
+
+                </div>
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+
+            </div>
+
+            <div class="slider-container">
+                <h3>Gems for you</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="gems-slider">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+            <div class="slider-container">
+                <h3>Critically Acclaimed Series</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="CompletelyCaptivating">
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+
+
+
+            </div>
+
+            <div class="slider-container">
+                <h3>ACTIONS</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="action-slider">
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+
+
+
+            </div>
+
+
+            <div class="slider-container">
+                <h3>Suspenseful TV Thrillers</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="Suspenseful">
+
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="slider-container">
+                <h3>Familiar Favourite Series</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="FamiliarFavourite">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+            <div class="slider-container">
+                <h3>Top 10 Series in Nigeria Today</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="Top_Ten_Nigerian">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+            <div class="slider-container">
+                <h3>War & Politics</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="War">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+            <div class="slider-container">
+                <h3>New on STREAMZ</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="NewOnStreamZ">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+            <div class="slider-container">
+                <h3>Award-winning BingeWorthy Crime Series</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="Award-winning">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+            <div class="slider-container">
+                <h3>BingeWorthy Spanish Series</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="BingeWorthySpanish">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+            <div class="slider-container">
+                <h3>Talk Shows</h3>
+
+                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+
+                <div class="slider-movie-container" id="talkShows">
+
+
+                </div>
+
+                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+
+        </section>
+    </main>
+
+    <footer>
+        <section class="footer-sectionI">
+            <div class="icons-container">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+
+            <div>
+                <p>Audio Description</p>
+                <p>Investor Relation</p>
+                <p>Logical Notices</p>
+
+            </div>
+
+            <p> © 2026 STREAMZ.Org</p>
+        </section>
+
+        <section class="footeri">
+            <div class="footer-sectionII">
+                <p>Help Center</p>
+                <p>Jobs</p>
+                <p>Cookie Preferences</p>
+
+            </div>
+
+            <div class="footer-sectionII">
+                <p>On Cards</p>
+                <p>Terms of Use</p>
+                <p>Corporate Information</p>
+
+            </div>
+
+            <div class="footer-sectionII">
+                <p>Media Center</p>
+                <p>Privacy</p>
+                <p>Contact Us</p>
+
+            </div>
+        </section>
+
+
+    </footer>
+
+
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>
