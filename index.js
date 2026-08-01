@@ -2,17 +2,66 @@
 const hamburgerMenu = document.getElementById('hamburger-menu');
 const navMenu = document.getElementById('nav-menu');
 
-// Toggle the 'active' class when the hamburger is clicked
-hamburgerMenu.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
 
-    // Optional: Change the icon from hamburger to an 'X' when open
-    if (navMenu.classList.contains('active')) {
-        hamburgerMenu.classList.replace('fa-bars', 'fa-xmark');
+
+let lastScrollTop = 0;
+const header = document.querySelector('header');
+
+window.addEventListener('scroll', () => {
+    // Get the current scroll position
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Check if scrolling down AND past the very top of the page
+    if (currentScroll > lastScrollTop && currentScroll > 70) {
+        // Scrolling Down: Hide the header
+        header.classList.add('hide-header');
     } else {
-        hamburgerMenu.classList.replace('fa-xmark', 'fa-bars');
+        // Scrolling Up (or at the very top): Show the header
+        header.classList.remove('hide-header');
+    }
+    
+    // Update the last scroll position to the current one
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevents negative scrolling values on mobile bounce
+});
+
+// --- Search Overlay Logic ---
+const searchBtn = document.getElementById('searchBar-Btn');
+const searchOverlay = document.getElementById('searchOverlay');
+const closeSearchBtn = document.getElementById('closeSearchBtn');
+const overlaySearchInput = document.getElementById('overlaySearchInput');
+
+// Open the overlay
+searchBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevents default link behavior if applicable
+    searchOverlay.classList.add('active');
+    
+    // Tiny delay to let the CSS fade-in finish before focusing the input
+    setTimeout(() => {
+        overlaySearchInput.focus();
+    }, 100);
+});
+
+// Close the overlay using the X button
+closeSearchBtn.addEventListener('click', () => {
+    searchOverlay.classList.remove('active');
+    overlaySearchInput.value = ''; // Optional: clears the search box on close
+});
+
+// Close the overlay if the user clicks anywhere on the blurred background
+searchOverlay.addEventListener('click', (e) => {
+    // If the click happened directly on the background (not inside the content)
+    if (e.target === searchOverlay) {
+        searchOverlay.classList.remove('active');
     }
 });
+
+// Close the overlay if the user presses the Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+        searchOverlay.classList.remove('active');
+    }
+});
+
 
 
 

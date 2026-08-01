@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="R2B9EqbEW7nQKevnj5PhlVt8SbvLZ6VD9D4LML4wHBg" /> 
+    <meta name="google-site-verification" content="R2B9EqbEW7nQKevnj5PhlVt8SbvLZ6VD9D4LML4wHBg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,41 +20,37 @@
     <header>
         <h1>StreamZ</h1>
         <nav>
-            <i class="fa-solid fa-bars hamburger" id="hamburger-menu"></i>
-
             <ul id="nav-menu">
-
-                <li class="mobile-search">
-                    <div class="searchBar">
-                        <input type="text" placeholder="Search StreamZ...">
-                        <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
+                <!-- We use FontAwesome icons and wrap the text in spans -->
+                <li><a href=""><i class="fa-solid fa-house nav-icon"></i> <span class="nav-text">Home</span></a></li>
+                <li><a href=""><i class="fa-solid fa-tv nav-icon"></i> <span class="nav-text">Series</span></a></li>
+                <li><a href=""><i class="fa-solid fa-film nav-icon"></i> <span class="nav-text">Films</span></a></li>
+                <li><a href=""><i class="fa-solid fa-gamepad nav-icon"></i> <span class="nav-text">Games</span></a></li>
+                <li><a href=""><i class="fa-solid fa-fire nav-icon"></i> <span class="nav-text">New & Popular</span></a>
                 </li>
-
-                <li><a href="">Home</a></li>
-                <li><a href="">Series</a></li>
-                <li><a href="">Films</a></li>
-                <li><a href="">Games</a></li>
-                <li><a href="">New & Popular</a></li>
-                <li><a href="">My List</a></li>
+                <li><a href=""><i class="fa-solid fa-plus nav-icon"></i> <span class="nav-text">My List</span></a></li>
             </ul>
 
-            <div class="nav-icons">
+            <!-- Top Right Nav Icons -->
+            <div class="nav-icons desktop-right-icons">
+                <!-- Search Icon -->
+                <button id="searchBar-Btn" class="nav-search-btn tooltip-container" data-tooltip="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
 
-                <div class="searchBar">
-                    <input type="text" id="searchBarInput"> <button id="searchBar-Btn"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                <!-- Notifications Icon -->
+                <i class="fa-regular fa-bell tooltip-container" data-tooltip="Notifications"></i>
 
-                <i class="fa-regular fa-bell"></i>
-                <i class="fa-regular fa-user"></i>
+                <!-- Profile Icon -->
+                <i class="fa-regular fa-user tooltip-container" data-tooltip="Profile"></i>
             </div>
-        </nav>
 
-        <div class="mode">
-
-            <button id="button-mode"> <i class="fa-solid fa-moon"></i></button>
-        </div>
+            <!-- Dark Mode Toggle -->
+            <div class="mode">
+                <button id="button-mode" class="tooltip-container" data-tooltip="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
     </header>
 
     <main>
@@ -319,6 +315,26 @@
 
 
     </footer>
+
+    <!-- Search Overlay / Modal -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-content">
+            <!-- Close Button -->
+            <button class="close-search" id="closeSearchBtn"><i class="fa-solid fa-xmark"></i></button>
+
+            <!-- Search Input Area -->
+            <div class="search-overlay-header">
+                <input type="text" id="overlaySearchInput" placeholder="Search movies, series, and more...">
+                <button id="overlaySearchSubmit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <!-- Where the movie results will be displayed -->
+            <div class="search-results-container" id="searchResults">
+                <p class="search-placeholder-text">Start typing to find your next favorite...</p>
+                <!-- Movie cards will be injected here via JavaScript later -->
+            </div>
+        </div>
+    </div>
 
 
 
