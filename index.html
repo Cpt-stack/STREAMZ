@@ -28,7 +28,7 @@
                 <li><a href=""><i class="fa-solid fa-gamepad nav-icon"></i> <span class="nav-text">Games</span></a></li>
                 <li><a href=""><i class="fa-solid fa-fire nav-icon"></i> <span class="nav-text">New & Popular</span></a>
                 </li>
-                <li><a href=""><i class="fa-solid fa-plus nav-icon"></i> <span class="nav-text">My List</span></a></li>
+                <li><a href="#" id="openMyListBtn"><i class="fa-solid fa-plus nav-icon"></i> <span class="nav-text">My List</span></a></li>
             </ul>
 
             <!-- Top Right Nav Icons -->
@@ -335,6 +335,19 @@
             </div>
         </div>
     </div>
+
+    <!-- My List Side Panel -->
+<div class="my-list-panel" id="myListPanel">
+    <div class="my-list-header">
+        <h2>My List</h2>
+        <button class="close-list" id="closeListBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    
+    <!-- Movies will be injected here -->
+    <div class="my-list-content" id="myListContent">
+        <p class="empty-list-text">Your list is currently empty.</p>
+    </div>
+</div>
 
 
 

@@ -1,29 +1,4 @@
-/* colors
 
-Primary/Accent: Neon Cyan         #00E5FF
-
-Secondary Accent: Magenta         #FF007F
-
-------------Dark Mode:---------
-
-Background: Deep Space Purple         #0B0914
-
-Surface/Cards: Dark Indigo         #161224
-
-Text: Off-White         #E0E0E0
-
-----------Light Mode:-------------
-
-Background: Very Pale Lavender         #F4F3F8
-
-Surface/Cards: White         #FFFFFF
-
-Text: Dark Slate         #1A1A24
-
-
-
-
-*/
 
 * {
     margin: 0;
@@ -101,7 +76,6 @@ header {
 
 body.dark-theme header {
     background: rgba(22, 18, 36, 0.65);
-    /* Dark surface with transparency */
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
@@ -113,17 +87,10 @@ header h1 {
     letter-spacing: 1px;
     text-transform: uppercase;
     text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
-    /* Subtle neon glow */
     margin-right: 30px;
 }
 
 
-
-/* @keyframes type{
-    from{
-        width: 0;
-    }
-} */
 
 
 
@@ -150,7 +117,7 @@ nav ul {
     gap: 30px;
     list-style: none;
     margin-right: auto;
-    /* Pushes the links to the left, icons to the right */
+  
 }
 
 nav ul a {
@@ -232,10 +199,7 @@ body.dark-theme .hamburger {
 }
 
 
-
-/* =========================================
-   Search Overlay Modal
-   ========================================= */
+ /* SEARCH OVERLAY  MODAL */
 .nav-search-btn {
     background: transparent;
     border: none;
@@ -1153,5 +1117,158 @@ body.dark-theme .hamburger {
     
     .mode {
         margin-left: 20px; /* Prevents the dark mode toggle from pushing too far left */
+    }
+}
+
+/* =========================================
+   MY LIST SIDE PANEL
+   ========================================= */
+.my-list-panel {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Hidden off-screen by default */
+    width: 380px;
+    max-width: 100vw;
+    height: 100vh;
+    background: rgba(244, 243, 248, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    transition: right 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+body.dark-theme .my-list-panel {
+    background: rgba(11, 9, 20, 0.95);
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.7);
+}
+
+/* JavaScript will add this class to slide it in */
+.my-list-panel.active {
+    right: 0;
+}
+
+.my-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .my-list-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.my-list-header h2 {
+    color: var(--lighttext);
+    font-size: 24px;
+}
+
+body.dark-theme .my-list-header h2 {
+    color: var(--DarkText);
+}
+
+.close-list {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--lighttext);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .close-list {
+    color: var(--DarkText);
+}
+
+.close-list:hover {
+    color: var(--Secondary);
+    transform: scale(1.1);
+}
+
+.my-list-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.empty-list-text {
+    color: var(--lighttext);
+    opacity: 0.6;
+    text-align: center;
+    margin-top: 50px;
+    font-weight: 500;
+}
+
+body.dark-theme .empty-list-text {
+    color: var(--DarkText);
+}
+
+/* Mini Card Styling for Saved Items */
+.mini-card {
+    display: flex;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+body.dark-theme .mini-card {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.mini-card:hover {
+    transform: scale(1.02);
+}
+
+.mini-card img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.mini-card-info {
+    padding: 10px 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.mini-card-info h4 {
+    color: var(--lighttext);
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+body.dark-theme .mini-card-info h4 {
+    color: var(--DarkText);
+}
+
+.remove-btn {
+    background: var(--Secondary);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    align-self: flex-start;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .my-list-panel {
+        width: 100%; /* Fills the whole phone screen */
     }
 }
