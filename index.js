@@ -1,4 +1,25 @@
+// ==========================================
+// 1. FIREBASE SETUP & IMPORTS
+// ==========================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAIAu2P-cYoa9gwfjlsNLq7VDGhaDO9e1o",
+  authDomain: "streamz-7eacd.firebaseapp.com",
+  projectId: "streamz-7eacd",
+  storageBucket: "streamz-7eacd.firebasestorage.app",
+  messagingSenderId: "544046492679",
+  appId: "1:544046492679:web:879ffc055765bfddb80ea2"
+};
 
+// ADD THESE FOUR LINES RIGHT HERE:
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+let currentUser = null; // Tracks the logged-in user
 
 // Select the hamburger icon and the navigation menu
 const hamburgerMenu = document.getElementById('hamburger-menu');
@@ -72,8 +93,8 @@ document.addEventListener('keydown', (e) => {
 
 
 // DARK Mode
-modeBtn = document.querySelector(".mode");
-buttonModeIcon = document.querySelector("#button-mode i");
+const modeBtn = document.querySelector(".mode");
+const buttonModeIcon = document.querySelector("#button-mode i");
 
 if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-theme");
@@ -194,20 +215,38 @@ function showMovies(movies, sliderId) {
         
 
    //  The "Add to List" Logic
-        addBtn.addEventListener('click', () => {
+// CHALLENGE 14: The "Add to List" Logic
+        addBtn.addEventListener('click', async () => {
+            // 1. Block guests from saving
+            if (!currentUser) {
+                alert("Please sign in to save movies to your list!");
+                return;
+            }
+
             const isAlreadyInList = MyList.find(savedMovie => savedMovie.id === movie.id);
 
             if (!isAlreadyInList) {
+                // 2. Update the local UI immediately so it feels fast
                 MyList.push(movie);
-                updateMyListUI(); // Saves to local storage and updates panel
+                updateMyListUI(); 
 
-                // Find EVERY button on the page for this specific movie and update them all
                 const matchingButtons = document.querySelectorAll(`.add-btn[data-id="${movie.id}"]`);
                 matchingButtons.forEach(btn => {
                     btn.innerHTML = `✓`;
                     btn.style.backgroundColor = "var(--primary)";
                     btn.style.color = "var(--lighttext)";
                 });
+
+                // 3. FIRESTORE: Save to the cloud in the background!
+                try {
+                    const userRef = doc(db, "users", currentUser.uid);
+                    await updateDoc(userRef, {
+                        savedMovies: arrayUnion(movie)
+                    });
+                } catch (error) {
+                    console.error("Error saving to cloud:", error);
+                }
+
             } else {
                 alert(`${movieTitle} is already in your list!`);
             }
@@ -314,7 +353,7 @@ getMovies(TOP_RATED_URL, '#gems-slider');
 getMovies(ACTION_URL, '#action-slider');
 getMovies(Captivating_Acclaimed_URL, '#CompletelyCaptivating');
 getMovies(Suspenseful_Tv_URL, '#Suspenseful')
-getMovies(Top_10_Serie_URL, '#top_Ten_Nigerian')
+// getMovies(Top_10_Serie_URL, '#top_Ten_Nigerian')
 getMovies(tOP_10_Nollywood_Films_URL, '#Top_Ten_Nigerian');
 getMovies(WAR_POLITICS_URL, '#War')
 getMovies(BingeWorthy_Spanish_Series_URL, '#BingeWorthySpanish');
@@ -494,23 +533,35 @@ function updateMyListUI() {
         myListContent.appendChild(MyListedContainer);
 
         // Inside updateMyListUI():
+   // Inside updateMyListUI():
         const removeBtn = MyListedContainer.querySelector('.remove-btn');
-        removeBtn.addEventListener('click', () => {
+        removeBtn.addEventListener('click', async () => {
             
-            // 1. Grab the ID of the movie BEFORE we delete it from the array
             const removedMovieId = MyList[index].id;
+            const removedMovieObject = MyList[index]; // We need the exact object for Firestore
             
-            // 2. Remove it from the array and redraw the side panel
+            // 1. Update the local UI immediately
             MyList.splice(index, 1);
             updateMyListUI(); 
             
-            // 3. Find the buttons on the main page and revert them back to "+"
             const matchingButtons = document.querySelectorAll(`.add-btn[data-id="${removedMovieId}"]`);
             matchingButtons.forEach(btn => {
                 btn.innerHTML = '+';
                 btn.style.backgroundColor = 'white';
                 btn.style.color = 'black';
             });
+
+            // 2. FIRESTORE: Delete from the cloud!
+            if (currentUser) {
+                try {
+                    const userRef = doc(db, "users", currentUser.uid);
+                    await updateDoc(userRef, {
+                        savedMovies: arrayRemove(removedMovieObject)
+                    });
+                } catch (error) {
+                    console.error("Error removing from cloud:", error);
+                }
+            }
         });
 
 
@@ -546,3 +597,104 @@ function loadSavedList() {
 }
 
 loadSavedList();
+
+
+
+
+
+
+// ==========================================
+// FIREBASE AUTHENTICATION UI LOGIC
+// ==========================================
+const profileToggle = document.getElementById('profileToggle');
+const profileDropdown = document.getElementById('profileDropdown');
+const defaultProfileIcon = document.getElementById('defaultProfileIcon');
+const userAvatar = document.getElementById('userAvatar');
+const loggedOutState = document.getElementById('loggedOutState');
+const loggedInState = document.getElementById('loggedInState');
+const userNameDisplay = document.getElementById('userNameDisplay');
+const googleLoginBtn = document.getElementById('googleLoginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+
+// 1. Toggle the Profile Dropdown
+profileToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle('active');
+});
+
+document.addEventListener('click', (e) => {
+    if (!profileToggle.contains(e.target)) {
+        profileDropdown.classList.remove('active');
+    }
+});
+
+// 2. The Firebase "Observer" - Watches for login/logout events
+// 2. The Firebase "Observer" - Watches for login/logout events
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        // --- USER IS LOGGED IN ---
+        currentUser = user;
+        console.log("Logged in as:", user.email);
+        
+        defaultProfileIcon.style.display = 'none';
+        userAvatar.style.display = 'block';
+        userAvatar.src = user.photoURL;
+        
+        loggedOutState.style.display = 'none';
+        loggedInState.style.display = 'block';
+        
+        const firstName = user.displayName.split(' ')[0];
+        userNameDisplay.textContent = `Welcome, ${firstName}!`;
+
+        // FIRESTORE: Fetch the user's saved list!
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+            // Load their cloud array into our local variable
+            MyList = docSnap.data().savedMovies || [];
+        } else {
+            // Brand new user? Create a new database document for them
+            await setDoc(userRef, { savedMovies: [] });
+            MyList = [];
+        }
+        
+        updateMyListUI(); // Draw the panel with their cloud data!
+        
+    } else {
+        // --- USER IS LOGGED OUT ---
+        currentUser = null;
+        console.log("No user is signed in.");
+        
+        defaultProfileIcon.style.display = 'block';
+        userAvatar.style.display = 'none';
+        userAvatar.src = '';
+        
+        loggedOutState.style.display = 'block';
+        loggedInState.style.display = 'none';
+
+        // Clear the list from the screen if they log out
+        MyList = [];
+        updateMyListUI();
+    }
+});
+
+// 3. Trigger the Google Login Popup
+googleLoginBtn.addEventListener('click', async () => {
+    try {
+        await signInWithPopup(auth, provider);
+        // The Observer above will automatically catch the success and update the UI!
+    } catch (error) {
+        console.error("Login failed:", error.message);
+    }
+});
+
+// 4. Trigger the Logout Event
+logoutBtn.addEventListener('click', async () => {
+    try {
+        await signOut(auth);
+        // The Observer above will automatically catch the logout and reset the UI!
+    } catch (error) {
+        console.error("Logout failed:", error.message);
+    }
+});

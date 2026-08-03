@@ -28,7 +28,8 @@
                 <li><a href=""><i class="fa-solid fa-gamepad nav-icon"></i> <span class="nav-text">Games</span></a></li>
                 <li><a href=""><i class="fa-solid fa-fire nav-icon"></i> <span class="nav-text">New & Popular</span></a>
                 </li>
-                <li><a href="#" id="openMyListBtn"><i class="fa-solid fa-plus nav-icon"></i> <span class="nav-text">My List</span></a></li>
+                <li><a href="#" id="openMyListBtn"><i class="fa-solid fa-plus nav-icon"></i> <span class="nav-text">My
+                            List</span></a></li>
             </ul>
 
             <!-- Top Right Nav Icons -->
@@ -38,11 +39,35 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
 
-                <!-- Notifications Icon -->
+               
                 <i class="fa-regular fa-bell tooltip-container" data-tooltip="Notifications"></i>
 
-                <!-- Profile Icon -->
-                <i class="fa-regular fa-user tooltip-container" data-tooltip="Profile"></i>
+               
+                <div class="profile-wrapper" id="profileToggle">
+                 
+                    <i class="fa-regular fa-user tooltip-container" id="defaultProfileIcon" data-tooltip="Profile"></i>
+
+                    
+                    <img src="" alt="User Avatar" class="user-avatar" id="userAvatar" style="display: none;">
+
+                  
+                    <div class="profile-dropdown" id="profileDropdown">
+
+                        
+                        <div id="loggedOutState">
+                            <p>Sign in to save your list across devices!</p>
+                            <button id="googleLoginBtn" class="auth-btn"><i class="fa-brands fa-google"></i> Sign in
+                                with Google</button>
+                        </div>
+
+                        
+                        <div id="loggedInState" style="display: none;">
+                            <h4 id="userNameDisplay">Welcome!</h4>
+                            <button id="logoutBtn" class="auth-btn logout-btn">Sign Out</button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
             <!-- Dark Mode Toggle -->
@@ -56,11 +81,10 @@
     <main>
 
         <section class="herosection" id="hero-board">
-            <!--  <pre>For The logo </pre> -->
+            
 
             <div>
 
-                <!-- <img src="/Capture001.png" alt=""> -->
 
                 <div id="HS-writeUp">
                     <h1 id="hero-title">
@@ -83,29 +107,6 @@
                 <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
 
                 <div class="slider-movie-container" id="popular-slider">
-
-                    <!-- 
-
-                    <div class="movie-card"> <img src="" alt="">
-                    </div>
-
-                    <div class="movie-card"> <img src="" alt="">
-                    </div>
-
-                    <div class="movie-card"> <img src="" alt="">
-                    </div>
-
-                    <div class="movie-card"> <img src="" alt="">
-                    </div>
-
-                    <div class="movie-card"> <img src="" alt="">
-                    </div>
-
-                    <div class="movie-card"> <img src="" alt="">
-                    </div>
-
-                    <div class="movie-card"> <img src="" alt="">
-                    </div> -->
 
                 </div>
                 <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
@@ -337,22 +338,24 @@
     </div>
 
     <!-- My List Side Panel -->
-<div class="my-list-panel" id="myListPanel">
-    <div class="my-list-header">
-        <h2>My List</h2>
-        <button class="close-list" id="closeListBtn"><i class="fa-solid fa-xmark"></i></button>
+    <div class="my-list-panel" id="myListPanel">
+        <div class="my-list-header">
+            <h2>My List</h2>
+            <button class="close-list" id="closeListBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Movies will be injected here -->
+        <div class="my-list-content" id="myListContent">
+            <p class="empty-list-text">Your list is currently empty.</p>
+        </div>
     </div>
-    
-    <!-- Movies will be injected here -->
-    <div class="my-list-content" id="myListContent">
-        <p class="empty-list-text">Your list is currently empty.</p>
-    </div>
-</div>
 
 
 
 
-    <script src="index.js"></script>
+    <script type="module" src="index.js"  >       
+    </script>
+  
 </body>
 
 </html>
