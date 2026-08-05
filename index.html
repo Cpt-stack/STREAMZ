@@ -12,21 +12,26 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>StreamZ</title>
+    <title>InfoHUB</title>
 </head>
 
 <body>
 
     <header>
-        <h1>StreamZ</h1>
+        <!-- <i class="fa-solid fa-bars hamburger" id="mainMenuBtn"></i> -->
+        <h1>InfoHUB</h1>
         <nav>
             <ul id="nav-menu">
                 <!-- We use FontAwesome icons and wrap the text in spans -->
-                <li><a href=""><i class="fa-solid fa-house nav-icon"></i> <span class="nav-text">Home</span></a></li>
-                <li><a href=""><i class="fa-solid fa-tv nav-icon"></i> <span class="nav-text">Series</span></a></li>
-                <li><a href=""><i class="fa-solid fa-film nav-icon"></i> <span class="nav-text">Films</span></a></li>
-                <li><a href=""><i class="fa-solid fa-gamepad nav-icon"></i> <span class="nav-text">Games</span></a></li>
-                <li><a href=""><i class="fa-solid fa-fire nav-icon"></i> <span class="nav-text">New & Popular</span></a>
+                <li><a href="#hero-board"><i class="fa-solid fa-house nav-icon"></i> <span
+                            class="nav-text">Home</span></a></li>
+                <li><a href="#CompletelyCaptivating_"><i class="fa-solid fa-tv nav-icon"></i> <span
+                            class="nav-text">Series</span></a></li>
+                <li><a href="#FamiliarFavourite_"><i class="fa-solid fa-film nav-icon"></i> <span class="nav-text">Films</span></a></li>
+                <li><a href="#" id="gamesNavBtn"><i class="fa-solid fa-gamepad nav-icon"></i> <span
+                            class="nav-text">Games</span></a></li>
+                <li><a href="#NewOnStreamZ_"><i class="fa-solid fa-fire nav-icon"></i> <span class="nav-text">New &
+                            Popular</span></a>
                 </li>
                 <li><a href="#" id="openMyListBtn"><i class="fa-solid fa-plus nav-icon"></i> <span class="nav-text">My
                             List</span></a></li>
@@ -39,28 +44,63 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
 
-               
-                <i class="fa-regular fa-bell tooltip-container" data-tooltip="Notifications"></i>
 
-               
+
+                <div class="notification-wrapper" id="notifToggle">
+
+                    <div style="position: relative;">
+                        <i class="fa-regular fa-bell tooltip-container" data-tooltip="Notifications"></i>
+                        <span class="notif-badge" id="notifBadge" style="display: none;">0</span>
+                    </div>
+
+                    <!-- The Dropdown -->
+                    <div class="notif-dropdown" id="notifDropdown">
+                        <h4>Notifications</h4>
+                        <div class="notif-list">
+                            <!-- Example Notification -->
+                            <div class="notif-item unread">
+                                <div class="notif-dot"></div>
+                                <div class="notif-text">
+                                    <strong>Welcome to InfoHUB!</strong>
+                                    <p>Start exploring new series and films.</p>
+                                </div>
+                            </div>
+
+                            <!-- My List Notification (FIXED ALIGNMENT) -->
+                            <div class="notif-item">
+                                <div class="notif-dot"></div> <!-- THIS DOT KEEPS IT ALIGNED -->
+                                <div class="notif-text">
+                                    <strong>My List</strong>
+                                    <p>Don't forget to check your saved movies.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="markReadBtn" class="auth-btn" style="margin-top: 10px; padding: 8px;">Mark all as
+                            read</button>
+                    </div>
+
+                </div>
+
                 <div class="profile-wrapper" id="profileToggle">
-                 
+
                     <i class="fa-regular fa-user tooltip-container" id="defaultProfileIcon" data-tooltip="Profile"></i>
 
-                    
+
                     <img src="" alt="User Avatar" class="user-avatar" id="userAvatar" style="display: none;">
 
-                  
+
                     <div class="profile-dropdown" id="profileDropdown">
 
-                        
+
                         <div id="loggedOutState">
                             <p>Sign in to save your list across devices!</p>
                             <button id="googleLoginBtn" class="auth-btn"><i class="fa-brands fa-google"></i> Sign in
                                 with Google</button>
-                        </div>
 
                         
+                        </div>
+
+
                         <div id="loggedInState" style="display: none;">
                             <h4 id="userNameDisplay">Welcome!</h4>
                             <button id="logoutBtn" class="auth-btn logout-btn">Sign Out</button>
@@ -81,7 +121,7 @@
     <main>
 
         <section class="herosection" id="hero-board">
-            
+
 
             <div>
 
@@ -128,7 +168,7 @@
 
 
             <div class="slider-container">
-                <h3>Critically Acclaimed Series</h3>
+                <h3 id="CompletelyCaptivating_">Critically Acclaimed Series</h3>
 
                 <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
 
@@ -173,7 +213,7 @@
             </div>
 
             <div class="slider-container">
-                <h3>Familiar Favourite Series</h3>
+                <h3 id="FamiliarFavourite_">Familiar Favourite Series</h3>
 
                 <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
 
@@ -186,18 +226,7 @@
             </div>
 
 
-            <div class="slider-container">
-                <h3>Top 10 Series in Nigeria Today</h3>
 
-                <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
-
-                <div class="slider-movie-container" id="Top_Ten_Nigerian">
-
-
-                </div>
-
-                <button class="scroll-btn right-arrow"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
 
 
             <div class="slider-container">
@@ -215,7 +244,7 @@
 
 
             <div class="slider-container">
-                <h3>New on STREAMZ</h3>
+                <h3 id="NewOnStreamZ_">New on InfoHUB</h3>
 
                 <button class="scroll-btn left-arrow"><i class="fa-solid fa-chevron-left"></i></button>
 
@@ -273,49 +302,100 @@
         </section>
     </main>
 
-    <footer>
-        <section class="footer-sectionI">
-            <div class="icons-container">
-                <i class="fa-brands fa-facebook"></i>
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-youtube"></i>
-            </div>
+    ```html
+<footer class="site-footer">
 
-            <div>
-                <p>Audio Description</p>
-                <p>Investor Relation</p>
-                <p>Logical Notices</p>
+    <div class="footer-main">
 
-            </div>
+        <!-- Brand -->
+        <div class="footer-brand">
 
-            <p> © 2026 STREAMZ.Org</p>
-        </section>
+            <a href="#" class="footer-logo">
+                Info<span>HUB</span>
+            </a>
 
-        <section class="footeri">
-            <div class="footer-sectionII">
-                <p>Help Center</p>
-                <p>Jobs</p>
-                <p>Cookie Preferences</p>
+            <p class="footer-description">
+                Your hub for discovering stories, entertainment,
+                information and everything worth knowing.
+            </p>
 
-            </div>
+            <div class="social-links">
 
-            <div class="footer-sectionII">
-                <p>On Cards</p>
-                <p>Terms of Use</p>
-                <p>Corporate Information</p>
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
 
-            </div>
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
 
-            <div class="footer-sectionII">
-                <p>Media Center</p>
-                <p>Privacy</p>
-                <p>Contact Us</p>
+                <a href="#" aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
 
             </div>
-        </section>
+
+        </div>
 
 
-    </footer>
+        <!-- Explore -->
+        <div class="footer-column">
+
+            <h3>Explore</h3>
+
+            <a href="#">Media Center</a>
+            <a href="#">Jobs</a>
+            <a href="#">Investor Relations</a>
+            <a href="#">Corporate Information</a>
+
+        </div>
+
+
+        <!-- Support -->
+        <div class="footer-column">
+
+            <h3>Support</h3>
+
+            <a href="#">Help Center</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Audio Description</a>
+            <a href="#">Legal Notices</a>
+
+        </div>
+
+
+        <!-- Legal -->
+        <div class="footer-column">
+
+            <h3>Legal</h3>
+
+            <a href="#">Privacy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Cookie Preferences</a>
+            <a href="#">Accessibility</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 <strong>InfoHUB</strong>. All rights reserved.
+        </p>
+
+        <div class="footer-bottom-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Cookies</a>
+        </div>
+
+    </div>
+
+</footer>
+```
+
 
     <!-- Search Overlay / Modal -->
     <div class="search-overlay" id="searchOverlay">
@@ -350,12 +430,47 @@
         </div>
     </div>
 
+    <div class="Movie_description_container" id="info-modal">
+        <div class="Movie_description">
+
+            <span class="close_desc" id="close-modal-btn">&times;</span>
+
+            <img src="" alt="" id="info-img">
+
+            <div class="text_content">
+                <h4 class="description_title" id="info-title"></h4>
+                <p class="descrip_paragraph" id="info-desc"></p>
+                <p class="release" id="info-release"></p>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- Games Coming Soon Modal -->
+    <div class="games-modal-container" id="gamesModal">
+        <div class="games-modal-content">
+            <span class="close-games-btn" id="closeGamesBtn">&times;</span>
 
-    <script type="module" src="index.js"  >       
+            <i class="fa-solid fa-gamepad games-modal-icon"></i>
+            <h2>Games Are Coming!</h2>
+
+            <p>We are leveling up your entertainment. Soon, you'll be able to stream and play premium games directly
+                inside InfoHUB. Get your controllers ready!</p>
+
+            <div class="release-date-box">
+                <span>Expected Drop:</span><br>
+                <strong>December 2026</strong>
+            </div>
+
+            <!-- Reusing your existing auth-btn class for perfect styling -->
+            <button class="auth-btn" id="notifyGamesBtn">Notify Me When Live</button>
+        </div>
+    </div>
+
+
+    <script type="module" src="index.js">
     </script>
-  
+
 </body>
 
 </html>

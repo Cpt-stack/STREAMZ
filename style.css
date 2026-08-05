@@ -680,7 +680,7 @@ footer {
     gap: 100px;
     height: auto;
     padding: 40px 0;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     width: 100%;
     margin-top: 100px;
@@ -1075,9 +1075,9 @@ body.dark-theme .hamburger {
     }
 }
 
-/* =========================================
-   Small Laptops & Tablets (769px - 1050px)
-   ========================================= */
+
+   /* Small Laptops & Tablets (769px - 1050px) */
+
 @media (min-width: 769px) and (max-width: 1050px) {
     header {
         width: 96%;
@@ -1106,9 +1106,9 @@ body.dark-theme .hamburger {
     }
 }
 
-/* =========================================
-   MY LIST SIDE PANEL
-   ========================================= */
+/* 
+   MY LIST SIDE PANEL */
+   
 .my-list-panel {
     position: fixed;
     top: 0;
@@ -1373,3 +1373,762 @@ body.dark-theme .logout-btn {
     background: var(--Secondary);
     color: white;
 }
+
+.phone-login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* The "or" divider */
+.divider {
+    text-align: center;
+    margin: 15px 0;
+    position: relative;
+    color: var(--lighttext);
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+body.dark-theme .divider {
+    color: var(--DarkText);
+}
+
+.divider::before, .divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: var(--lighttext);
+    opacity: 0.3;
+}
+
+body.dark-theme .divider::before, body.dark-theme .divider::after {
+    background-color: var(--DarkText);
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+/* Phone Inputs */
+.phone-login-container input {
+    width: 100%;
+    padding: 10px;
+    /* Matches your glassmorphism look */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--lighttext);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .phone-login-container input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--DarkText);
+}
+
+.phone-login-container input:focus {
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+body.dark-theme .phone-login-container input:focus {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Make sure the recaptcha scales down nicely inside the dropdown */
+#recaptcha-container {
+    transform: scale(0.85);
+    transform-origin: center;
+    margin: 0 auto;
+}
+
+/* 1. The Full-Screen Dark Blurred Background */
+.Movie_description_container {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999; /* Keeps it on top of everything */
+    background-color: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(12px); /* The Frosted Glass Blur */
+    -webkit-backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+}
+
+/* We will use JavaScript to add this class when a movie is clicked */
+.Movie_description_container.active {
+    display: flex; 
+}
+
+/* 2. The Glass Box Itself */
+.Movie_description {
+    background: rgba(255, 255, 255, 0.1); /* Very transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    position: relative;
+    color: white;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. The Movie Poster Inside the Box */
+.Movie_description img {
+    width: 250px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+/* 4. Text Formatting */
+.description_title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.descrip_paragraph {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.release {
+    font-weight: bold;
+    color: var(--primary); /* Uses your main theme color! */
+}
+
+/* 5. The Close Button 'X' */
+.close_desc {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close_desc:hover {
+    color: var(--primary);
+}
+
+/* 6. Mobile Responsiveness (Stacks image on top of text) */
+@media (max-width: 768px) {
+    .Movie_description {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px 20px;
+    }
+    .Movie_description img {
+        width: 180px;
+    }
+}
+
+.notification-wrapper {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* The red notification counter */
+.notif-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: var(--primary);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The Dropdown Panel */
+.notif-dropdown {
+    position: absolute;
+    top: 150%;
+    right: -10px; /* Aligns nicely with the bell */
+    width: 280px;
+    background: rgba(244, 243, 248, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    
+    /* Hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    text-align: left;
+}
+
+body.dark-theme .notif-dropdown {
+    background: rgba(11, 9, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.notif-dropdown.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+.notif-dropdown h4 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: var(--lighttext);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+
+body.dark-theme .notif-dropdown h4 {
+    color: var(--DarkText);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Individual Notification Items */
+.notif-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.notif-item:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+body.dark-theme .notif-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.notif-text strong {
+    display: block;
+    font-size: 13px;
+    color: var(--lighttext);
+}
+
+body.dark-theme .notif-text strong {
+    color: var(--DarkText);
+}
+
+.notif-text p {
+    margin: 3px 0 0 0 !important;
+    font-size: 11px !important;
+    color: gray !important;
+}
+
+/* Unread indicator */
+.notif-dot {
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+
+.notif-item.unread .notif-dot {
+    background-color: var(--primary);
+}
+
+
+.games-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000; /* Ensure it floats above the header */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.games-modal-container.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.games-modal-content {
+    background: rgba(244, 243, 248, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.games-modal-container.active .games-modal-content {
+    transform: translateY(0);
+}
+
+body.dark-theme .games-modal-content {
+    background: rgba(11, 9, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-games-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--lighttext);
+    transition: color 0.3s;
+}
+
+body.dark-theme .close-games-btn {
+    color: var(--DarkText);
+}
+
+.close-games-btn:hover {
+    color: var(--primary);
+}
+
+.games-modal-icon {
+    font-size: 50px;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.games-modal-content h2 {
+    color: var(--lighttext);
+    margin-bottom: 15px;
+}
+
+body.dark-theme .games-modal-content h2, 
+body.dark-theme .games-modal-content p {
+    color: var(--DarkText);
+}
+
+.games-modal-content p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--lighttext);
+    margin-bottom: 20px;
+}
+
+.release-date-box {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px dashed var(--primary);
+}
+
+body.dark-theme .release-date-box {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.release-date-box span {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.release-date-box strong {
+    font-size: 20px;
+    color: var(--primary);
+    display: block;
+    margin-top: 5px;
+}
+
+
+
+
+.site-footer {
+    width: 100%;
+    margin-top: 100px;
+    padding: 70px 7% 25px;
+
+    background: var(--DarkBackground);
+    color: var(--DarkText);
+
+    border-top: 1px solid var(--DarkSurface);
+}
+
+
+/* =========================================
+   MAIN FOOTER
+========================================= */
+
+.footer-main {
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: 70px;
+
+    padding-bottom: 55px;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.footer-logo {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    color: var(--DarkText);
+
+    font-size: 30px;
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+    text-decoration: none;
+}
+
+.footer-logo span {
+    color: var(--primary);
+}
+
+
+/* =========================================
+   BRAND DESCRIPTION
+========================================= */
+
+.footer-description {
+    max-width: 320px;
+
+    margin: 0;
+
+    color: var(--DarkText);
+
+    font-size: 14px;
+    line-height: 1.7;
+
+    opacity: 0.65;
+}
+
+
+/* =========================================
+   SOCIAL MEDIA
+========================================= */
+
+.social-links {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.social-links a {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--DarkSurface);
+    border-radius: 50%;
+
+    background: var(--DarkSurface);
+    color: var(--DarkText);
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary);
+
+    border-color: var(--primary);
+
+    transform: translateY(-4px);
+}
+
+.social-links a:nth-child(2):hover {
+    color: var(--Secondary);
+    border-color: var(--Secondary);
+}
+
+.social-links a:nth-child(3):hover {
+    color: var(--Secondary);
+    border-color: var(--Secondary);
+}
+
+.social-links i {
+    font-size: 16px;
+}
+
+
+
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.footer-column h3 {
+    margin: 0 0 10px;
+
+    color: var(--primary);
+
+    font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+}
+
+.footer-column a {
+    width: fit-content;
+
+    color: var(--DarkText);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    opacity: 0.6;
+
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.footer-column a:hover {
+    color: var(--primary);
+    opacity: 1;
+
+    transform: translateX(4px);
+}
+
+
+
+
+.footer-bottom {
+    width: 100%;
+    max-width: 1300px;
+
+    margin: auto;
+    padding-top: 25px;
+
+    border-top: 1px solid var(--DarkSurface);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+
+    color: var(--DarkText);
+
+    font-size: 13px;
+
+    opacity: 0.55;
+}
+
+.footer-bottom strong {
+    color: var(--primary);
+    opacity: 1;
+}
+
+
+
+.footer-bottom-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-bottom-links a {
+    color: var(--DarkText);
+
+    font-size: 13px;
+
+    text-decoration: none;
+
+    opacity: 0.55;
+
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: var(--primary);
+    opacity: 1;
+}
+
+
+
+
+body.dark-theme .site-footer {
+    background: var(--ligthBackground);
+    color: var(--lighttext);
+
+    border-top: 1px solid var(--lightsurface);
+}
+
+body.dark-theme .footer-logo {
+    color: var(--lighttext);
+}
+
+body.dark-theme .footer-description {
+    color: var(--lighttext);
+}
+
+body.dark-theme .footer-column a {
+    color: var(--lighttext);
+}
+
+body.dark-theme .footer-bottom {
+    border-top: 1px solid var(--lightsurface);
+}
+
+body.dark-theme .footer-bottom p {
+    color: var(--lighttext);
+}
+
+body.dark-theme .footer-bottom-links a {
+    color: var(--lighttext);
+}
+
+body.dark-theme .social-links a {
+    background: var(--lightsurface);
+    border-color: var(--lightsurface);
+    color: var(--lighttext);
+}
+
+
+
+
+@media (max-width: 900px) {
+
+    .site-footer {
+        padding: 60px 6% 25px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 50px 40px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+
+
+@media (max-width: 600px) {
+
+    .site-footer {
+        margin-top: 70px;
+        padding: 50px 7% 20px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 25px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer-logo {
+        font-size: 27px;
+    }
+
+    .footer-description {
+        font-size: 13px;
+    }
+
+    .footer-column {
+        gap: 12px;
+    }
+
+    .footer-column h3 {
+        font-size: 14px;
+    }
+
+    .footer-column a {
+        font-size: 13px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .footer-bottom-links {
+        gap: 18px;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+}
+

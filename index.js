@@ -6,15 +6,15 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAIAu2P-cYoa9gwfjlsNLq7VDGhaDO9e1o",
-  authDomain: "streamz-7eacd.firebaseapp.com",
-  projectId: "streamz-7eacd",
-  storageBucket: "streamz-7eacd.firebasestorage.app",
-  messagingSenderId: "544046492679",
-  appId: "1:544046492679:web:879ffc055765bfddb80ea2"
+    apiKey: "AIzaSyAzlCZ9d8WFKShfucV69rEU6sVFGjzeEzE",
+    authDomain: "streamz-7eacd.firebaseapp.com",
+    projectId: "streamz-7eacd",
+    storageBucket: "streamz-7eacd.firebasestorage.app",
+    messagingSenderId: "544046492679",
+    appId: "1:544046492679:web:879ffc055765bfddb80ea2"
 };
 
-// ADD THESE FOUR LINES RIGHT HERE:
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -22,8 +22,29 @@ const provider = new GoogleAuthProvider();
 let currentUser = null; // Tracks the logged-in user
 
 // Select the hamburger icon and the navigation menu
-const hamburgerMenu = document.getElementById('hamburger-menu');
+// const hamburgerMenu = document.getElementById('hamburger-menu');
 const navMenu = document.getElementById('nav-menu');
+// ==========================================
+// MOBILE TOOLS HAMBURGER LOGIC
+// ==========================================
+const mobileToolsBtn = document.getElementById('mobileToolsBtn');
+const desktopRightIcons = document.querySelector('.desktop-right-icons');
+
+if (mobileToolsBtn && desktopRightIcons) {
+    // Open/Close the menu when the hamburger is clicked
+    mobileToolsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        desktopRightIcons.classList.toggle('active');
+    });
+
+    // Close the menu if the user clicks anywhere else on the screen
+    document.addEventListener('click', (e) => {
+        if (!mobileToolsBtn.contains(e.target) && !desktopRightIcons.contains(e.target)) {
+            desktopRightIcons.classList.remove('active');
+        }
+    });
+}
+
 
 
 
@@ -136,6 +157,7 @@ modeBtn.addEventListener('click', () => {
 const API_KEY = '6a29b492761e52181b5f197d0fc3de66'; // Keep the quotes!
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_PATH = 'https://image.tmdb.org/t/p/w500';
+const HeroImgPath = 'https://image.tmdb.org/t/p/original'
 
 // 2. Build the full URL for your first slider (e.g., Popular Movies)
 const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&api_key=' + API_KEY;
@@ -152,6 +174,7 @@ async function getMovies(url, sliderId) {
 
 
         showMovies(data.results, sliderId);
+
 
     } catch (error) {
         // This catches any network errors and prints them safely
@@ -172,7 +195,10 @@ let MyList = [];
 function showMovies(movies, sliderId) {
 
     const slider = document.querySelector(sliderId);
-
+    if (!slider) {
+        console.warn(`Could not find the HTML ID: ${sliderId}. Skipping...`);
+        return; // This stops the function from crashing!
+    }
     // 2. Loop through the array of movies
     movies.forEach((movie) => {
 
@@ -183,9 +209,9 @@ function showMovies(movies, sliderId) {
         let movieTitle = movie.title || movie.name;
 
 
-    //    . Check if this movie is ALREADY in our saved list when the page loads
+        //    . Check if this movie is ALREADY in our saved list when the page loads
         const isAlreadySaved = MyList.find(savedMovie => savedMovie.id === movie.id);
-        
+
         //  Set the button styles based on whether it is saved or not
         const btnIcon = isAlreadySaved ? '✓' : '+';
         const btnBg = isAlreadySaved ? 'var(--primary)' : 'white';
@@ -205,17 +231,27 @@ function showMovies(movies, sliderId) {
                 </div>
             </div>
         `;
-        
+
         slider.appendChild(newDiv);
 
         // 2. Grab the specific buttons we JUST created for this specific card
         const playBtn = newDiv.querySelector('.play-btn');
         const addBtn = newDiv.querySelector('.add-btn');
 
-        
+        const cardPoster = newDiv.querySelector('img');
 
-   //  The "Add to List" Logic
-// CHALLENGE 14: The "Add to List" Logic
+        // Hint: Change the cursor so the user knows it is clickable
+        cardPoster.style.cursor = 'pointer';
+
+        // Hint: Pass the current 'movie' from the loop into our new function
+        cardPoster.addEventListener('click', () => {
+            OpenInfoModal(movie);
+        });
+
+
+
+        //  The "Add to List" Logic
+        // CHALLENGE 14: The "Add to List" Logic
         addBtn.addEventListener('click', async () => {
             // 1. Block guests from saving
             if (!currentUser) {
@@ -228,7 +264,7 @@ function showMovies(movies, sliderId) {
             if (!isAlreadyInList) {
                 // 2. Update the local UI immediately so it feels fast
                 MyList.push(movie);
-                updateMyListUI(); 
+                updateMyListUI();
 
                 const matchingButtons = document.querySelectorAll(`.add-btn[data-id="${movie.id}"]`);
                 matchingButtons.forEach(btn => {
@@ -252,7 +288,7 @@ function showMovies(movies, sliderId) {
             }
         });
 
-      
+
         // The "Play Trailer" Logic
         playBtn.addEventListener('click', async () => {
             let fetchUrl;
@@ -337,7 +373,7 @@ const TOP_RATED_URL = BASE_URL + '/movie/top_rated?api_key=' + API_KEY;
 const ACTION_URL = BASE_URL + '/discover/movie?with_genres=28&api_key=' + API_KEY;
 const Suspenseful_Tv_URL = BASE_URL + '/discover/tv?with_genres=9648,80&sort_by=popularity.desc&api_key=' + API_KEY;
 const FAMILIAR_FAVOURITE_URL = BASE_URL + '/tv/popular?api_key=' + API_KEY;
-const Top_10_Serie_URL = BASE_URL + '/trending/tv/day?api_key=' + API_KEY;
+// const Top_10_Serie_URL = BASE_URL + '/trending/tv/day?api_key=' + API_KEY;
 const tOP_10_Nollywood_Films_URL = BASE_URL + '/trending/tv/week?api_key=' + API_KEY;
 const WAR_POLITICS_URL = `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=10768`;
 const Award_winning_BingeWorthy_URL = BASE_URL + '/discover/tv?with_genres=80&sort_by=vote_average.desc&vote_count.gte=500&api_key=' + API_KEY;
@@ -390,7 +426,7 @@ async function getHeroMovie(url) {
         const max = 19;
         const min = 0;
         const randomIndex = Math.floor((Math.random() * data.results.length));
-        const randomMovie = data.results[randomIndex];
+        let randomMovie = data.results[randomIndex];
 
 
 
@@ -409,12 +445,57 @@ async function getHeroMovie(url) {
         // You'll need to use the IMG_PATH + randomMovie.backdrop_path 
         // Note: TMDB backdrops for the Hero section look best when you request original quality instead of w500.
         // heroBoard.innerHTML;
-        const HeroImgPath = 'https://image.tmdb.org/t/p/original'
+
 
 
 
         console.log(HeroImgPath)
         heroBoard.style.backgroundImage = `linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%), url(${HeroImgPath + randomMovie.backdrop_path})`;
+
+        const playBillboard = document.querySelector("#hero-section-btnI");
+        const MoreInfoBillboard = document.querySelector("#hero-section-btnII");
+
+        if (playBillboard && MoreInfoBillboard) {
+            playBillboard.addEventListener("click", BillbiardTailer)
+
+            async function BillbiardTailer() {
+
+
+                let Bill_url;
+
+                if (randomMovie.name) {
+                    Bill_url = `${BASE_URL}/tv/${randomMovie.id}/videos?api_key=${API_KEY}`;
+                } else {
+                    Bill_url = `${BASE_URL}/movie/${randomMovie.id}/videos?api_key=${API_KEY}`;
+                }
+
+                try {
+                    const vidresponse = await fetch(Bill_url);
+                    const viddata = await vidresponse.json();
+
+                    const trailer = viddata.results.find(video =>
+                        video.site === "YouTube" &&
+                        video.type === "Trailer"
+                    );
+
+                    if (trailer) {
+                        const trailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
+                        console.log("Opening trailer:", trailerUrl);
+                        window.open(trailerUrl, '_blank');
+                    } else {
+                        alert("Sorry, no trailer available for this title!");
+                    }
+                }
+                catch (error) {
+                    console.error(error)
+                }
+            }
+
+            MoreInfoBillboard.addEventListener("click", () => {
+                OpenInfoModal(randomMovie);
+            });
+
+        }
 
     } catch (error) {
         console.error("Oops, failed to fetch hero movie:", error);
@@ -422,9 +503,10 @@ async function getHeroMovie(url) {
 }
 
 
-// getHeroMovie(POPULAR_URL);
+getHeroMovie(POPULAR_URL);
 
-getHeroMovie(Award_winning_BingeWorthy_URL);
+// getHeroMovie(Award_winning_BingeWorthy_URL);
+
 
 
 
@@ -507,7 +589,7 @@ function updateMyListUI() {
         myListContent.innerHTML = `<p class="empty-list-text">Your list is currently empty.</p>`;
 
         localStorage.setItem("streamz_saved_movies", JSON.stringify(MyList)); // STORING THE EMPTY ARRAY IN THE BROWSER HARD DRIVE
-        // AND CONVERTING THE ARRAY INTO A TEXT STRING 
+        // AND CONVERTING THE ARRAY INTO A TEXT STRING (JSON)
 
         return;
     }
@@ -533,17 +615,17 @@ function updateMyListUI() {
         myListContent.appendChild(MyListedContainer);
 
         // Inside updateMyListUI():
-   // Inside updateMyListUI():
+        // Inside updateMyListUI():
         const removeBtn = MyListedContainer.querySelector('.remove-btn');
         removeBtn.addEventListener('click', async () => {
-            
+
             const removedMovieId = MyList[index].id;
             const removedMovieObject = MyList[index]; // We need the exact object for Firestore
-            
+
             // 1. Update the local UI immediately
             MyList.splice(index, 1);
-            updateMyListUI(); 
-            
+            updateMyListUI();
+
             const matchingButtons = document.querySelectorAll(`.add-btn[data-id="${removedMovieId}"]`);
             matchingButtons.forEach(btn => {
                 btn.innerHTML = '+';
@@ -577,28 +659,70 @@ function updateMyListUI() {
 
 function loadSavedList() {
     let storedData = localStorage.getItem("streamz_saved_movies");
-    
+
     if (storedData !== null) {
         let parseArray = JSON.parse(storedData);
-        
+
         // SAFETY NET: Check if the parsed data is actually a real array!
         if (Array.isArray(parseArray)) {
             MyList = parseArray;
         } else {
             // If the saved data was corrupted/broken, reset it to an empty array
-            MyList = []; 
+            MyList = [];
         }
     } else {
         console.log("No saved list found.");
         MyList = [];
     }
-    
+
     updateMyListUI();
 }
 
 loadSavedList();
 
 
+// MOVIE DESCRIPTION MODAL LOGIC
+
+const Movie_description_container = document.querySelector(".Movie_description_container");
+const close_descBtn = document.querySelector("#close-modal-btn");
+const info_img = document.querySelector("#info-img");
+let description_title = document.querySelector(".description_title");
+let descrip_paragraph = document.querySelector(".descrip_paragraph");
+let release = document.querySelector(".release");
+
+function OpenInfoModal(movieData) {
+    // Check if we have a title or name
+    description_title.textContent = movieData.title || movieData.name;
+    descrip_paragraph.textContent = movieData.overview || "No description available for this title.";
+
+    // Get the release date
+    let date = movieData.release_date || movieData.first_air_date || 'Unknown';
+    release.textContent = `Released: ${date}`;
+
+    // Set the image (using the HeroImgPath you defined earlier)
+    info_img.src = `${HeroImgPath + movieData.poster_path}`;
+
+    // Show the modal
+    if (Movie_description_container) {
+        Movie_description_container.classList.add('active');
+    }
+}
+
+// Close modal when clicking the X button
+if (close_descBtn) {
+    close_descBtn.addEventListener('click', function () {
+        Movie_description_container.classList.remove('active');
+    });
+}
+
+// Close modal when clicking the blurred background
+if (Movie_description_container) {
+    Movie_description_container.addEventListener('click', (event) => {
+        if (event.target === Movie_description_container) {
+            Movie_description_container.classList.remove('active');
+        }
+    });
+}
 
 
 
@@ -622,29 +746,39 @@ profileToggle.addEventListener('click', (e) => {
     profileDropdown.classList.toggle('active');
 });
 
+profileDropdown.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
 document.addEventListener('click', (e) => {
     if (!profileToggle.contains(e.target)) {
         profileDropdown.classList.remove('active');
     }
 });
 
-// 2. The Firebase "Observer" - Watches for login/logout events
+
 // 2. The Firebase "Observer" - Watches for login/logout events
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         // --- USER IS LOGGED IN ---
         currentUser = user;
         console.log("Logged in as:", user.email);
-        
+
         defaultProfileIcon.style.display = 'none';
         userAvatar.style.display = 'block';
-        userAvatar.src = user.photoURL;
-        
+        userAvatar.src = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+
         loggedOutState.style.display = 'none';
         loggedInState.style.display = 'block';
-        
-        const firstName = user.displayName.split(' ')[0];
-        userNameDisplay.textContent = `Welcome, ${firstName}!`;
+        loadSavedNotifications();
+
+        let displayName = "JohnDoe";
+
+        if (user.displayName) {
+            displayName = user.displayName.split(' ')[0];
+        }
+
+        userNameDisplay.textContent = `Welcome, ${displayName}!`;
 
         // FIRESTORE: Fetch the user's saved list!
         const userRef = doc(db, "users", user.uid);
@@ -658,24 +792,40 @@ onAuthStateChanged(auth, async (user) => {
             await setDoc(userRef, { savedMovies: [] });
             MyList = [];
         }
-        
+
         updateMyListUI(); // Draw the panel with their cloud data!
-        
+
     } else {
         // --- USER IS LOGGED OUT ---
         currentUser = null;
         console.log("No user is signed in.");
-        
+
         defaultProfileIcon.style.display = 'block';
         userAvatar.style.display = 'none';
         userAvatar.src = '';
-        
+
         loggedOutState.style.display = 'block';
         loggedInState.style.display = 'none';
 
         // Clear the list from the screen if they log out
         MyList = [];
         updateMyListUI();
+
+        const allAddButtons = document.querySelectorAll('.add-btn');
+        allAddButtons.forEach(btn => {
+            btn.innerHTML = '+';
+            btn.style.backgroundColor = 'white';
+            btn.style.color = 'black';
+        })
+
+        const notifBadge = document.getElementById('notifBadge');
+        if (notifBadge) notifBadge.style.display = 'none';
+
+        document.querySelector('.notif-list').innerHTML = `
+            <p style="text-align: center; color: gray; font-size: 12px; margin-top: 10px;">
+                Sign in to see your notifications.
+            </p>
+        `;
     }
 });
 
@@ -698,3 +848,201 @@ logoutBtn.addEventListener('click', async () => {
         console.error("Logout failed:", error.message);
     }
 });
+
+
+
+
+// notification
+
+const notifToggle = document.getElementById('notifToggle');
+const notifDropdown = document.getElementById('notifDropdown');
+const notifBadge = document.getElementById('notifBadge');
+const markReadBtn = document.getElementById('markReadBtn');
+const unreadItems = document.querySelectorAll('.notif-item.unread');
+
+// 1. Toggle the Notification Dropdown
+notifToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    notifDropdown.classList.toggle('active');
+
+    // Close the profile dropdown if it happens to be open
+    if (typeof profileDropdown !== 'undefined') {
+        profileDropdown.classList.remove('active');
+    }
+});
+
+// Prevent clicks inside the dropdown from closing it
+notifDropdown.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
+// 2. Mark all as read logic
+markReadBtn.addEventListener('click', () => {
+    const notifBadge = document.getElementById('notifBadge');
+    // Hide the badge and reset its count
+    notifBadge.style.display = 'none';
+    notifBadge.textContent = '0';
+
+    // Find ALL current unread items (including newly added ones) and clear them
+    const currentUnreadItems = document.querySelectorAll('.notif-item.unread');
+    currentUnreadItems.forEach(item => {
+        item.classList.remove('unread');
+    });
+});
+
+// 3. Close the dropdown when clicking anywhere else on the page
+document.addEventListener('click', (e) => {
+    if (!notifToggle.contains(e.target)) {
+        notifDropdown.classList.remove('active');
+    }
+});
+
+
+
+// Function to dynamically create notifications
+function addNotification(title, message) {
+    const notifList = document.querySelector('.notif-list');
+    const notifBadge = document.getElementById('notifBadge');
+
+    // 1. Create the new notification HTML
+    const newItem = document.createElement('div');
+    newItem.classList.add('notif-item', 'unread');
+    newItem.innerHTML = `
+        <div class="notif-dot"></div>
+        <div class="notif-text">
+            <strong>${title}</strong>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // 2. Insert it at the very top of the dropdown
+    notifList.prepend(newItem);
+
+    // 3. Update the red badge counter
+    // If it was hidden (because they marked all as read previously), show it again
+    if (notifBadge.style.display === 'none') {
+        notifBadge.style.display = 'flex';
+        notifBadge.textContent = '0';
+    }
+
+    let currentCount = parseInt(notifBadge.textContent) || 0;
+    notifBadge.textContent = currentCount + 1;
+
+
+    saveNotificationsToStorage();
+}
+
+// Saves the current notifications to local storage
+function saveNotificationsToStorage() {
+    const notifList = document.querySelector('.notif-list');
+    const notifBadge = document.getElementById('notifBadge');
+
+    const notifData = {
+        html: notifList.innerHTML,
+        badgeCount: notifBadge.textContent,
+        badgeDisplay: notifBadge.style.display
+    };
+
+    localStorage.setItem('streamz_notifs', JSON.stringify(notifData));
+}
+
+
+// Loads saved notifications when the page refreshes
+function loadSavedNotifications() {
+    const savedData = localStorage.getItem('streamz_notifs');
+
+    if (savedData) {
+        const notifData = JSON.parse(savedData);
+
+        // Restore the HTML and the badge state
+        document.querySelector('.notif-list').innerHTML = notifData.html;
+
+        const notifBadge = document.getElementById('notifBadge');
+        notifBadge.textContent = notifData.badgeCount;
+        notifBadge.style.display = notifData.badgeDisplay;
+    }
+}
+
+// Trigger it immediately when the script runs
+
+
+
+// games
+
+
+
+const gamesNavBtn = document.getElementById('gamesNavBtn');
+const gamesModal = document.getElementById('gamesModal');
+const closeGamesBtn = document.getElementById('closeGamesBtn');
+const notifyGamesBtn = document.getElementById('notifyGamesBtn');
+
+// SAFETY CHECK: Only run this code if the Games HTML exists!
+if (gamesNavBtn && gamesModal && closeGamesBtn && notifyGamesBtn) {
+
+    // 1. Check if they ALREADY clicked it in the past (when the page loads)
+    if (localStorage.getItem('streamz_games_notify') === 'true') {
+        notifyGamesBtn.textContent = '✓ You are on the list!';
+        notifyGamesBtn.style.backgroundColor = 'var(--primary)';
+        notifyGamesBtn.style.color = 'white';
+        notifyGamesBtn.style.pointerEvents = 'none'; // Makes it unclickable
+    }
+
+    // 2. Open modal when clicking the Games link
+    gamesNavBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        gamesModal.classList.add('active');
+    });
+
+    // 3. Close modal when clicking the X
+    closeGamesBtn.addEventListener('click', () => {
+        gamesModal.classList.remove('active');
+    });
+
+    // 4. Close modal when clicking the background overlay
+    gamesModal.addEventListener('click', (e) => {
+        if (e.target === gamesModal) {
+            gamesModal.classList.remove('active');
+        }
+    });
+
+    // 5. Handle the Notify Button Click
+    notifyGamesBtn.addEventListener('click', () => {
+        notifyGamesBtn.textContent = '✓ You are on the list!';
+        notifyGamesBtn.style.backgroundColor = 'var(--primary)';
+        notifyGamesBtn.style.color = 'white';
+        notifyGamesBtn.style.pointerEvents = 'none';
+
+        localStorage.setItem('streamz_games_notify', 'true');
+        alert("You're on the list! We'll ping you when the arcade opens.");
+
+        setTimeout(() => {
+            gamesModal.classList.remove('active');
+        }, 500);
+    });
+
+} else {
+    console.warn("Games modal HTML is missing. Skipping Games logic.");
+}
+
+// 5. Handle the Notify Button Click
+notifyGamesBtn.addEventListener('click', () => {
+    // Visually update the button
+    notifyGamesBtn.textContent = '✓ You are on the list!';
+    notifyGamesBtn.style.backgroundColor = 'var(--primary)';
+    notifyGamesBtn.style.color = 'white';
+
+    // Disable future clicks
+    notifyGamesBtn.style.pointerEvents = 'none';
+
+    // Save their choice to the browser's hard drive
+    localStorage.setItem('streamz_games_notify', 'true');
+
+    alert("You're on the list! We'll ping you when the arcade opens.");
+
+    // Give them half a second to see the button change before closing the modal
+    setTimeout(() => {
+        gamesModal.classList.remove('active');
+    }, 500);
+});
+
+
