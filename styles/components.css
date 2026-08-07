@@ -1,0 +1,270 @@
+main {
+    width: 100%;
+    margin-top: 100px;
+}
+
+body.dark-theme main {
+    width: 100%;
+    margin-top: 100px;
+}
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.herosection {
+    position: relative;
+    height: 85vh;
+    width: 90%;
+    background: rgba(0, 0, 0, 0.048);
+    border-radius: 12px;
+    margin: 0 auto 0 auto;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.466);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+body.dark-theme .herosection {
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.288);
+    margin: 0 auto;
+    width: 90%;
+}
+
+#HS-writeUp {
+    position: absolute;
+    bottom: 15%;
+    left: 25px;
+}
+
+#HS-writeUp h1 {
+    font-weight: 900;
+    font-size: 40px;
+    color: white;
+}
+
+#HS-writeUp p {
+    padding: 12px 12px 12px 0;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+}
+
+.hero-section-btn {
+    border-radius: 10px;
+    padding: 10px 12px;
+    width: 100px;
+    color: var(--lighttext);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    height: 40px;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .hero-section-btn {
+    color: var(--DarkText);
+}
+
+#hero-section-btnII {
+    background-color: var(--primary);
+    border: 1px solid black;
+}
+
+#hero-section-btnI {
+    border: 1px solid var(--primary);
+    background-color: white;
+}
+
+body.dark-theme #hero-section-btnII {
+    background-color: var(--Secondary);
+}
+
+body.dark-theme #hero-section-btnI {
+    border: 1px solid var(--Secondary);
+    background-color: transparent;
+}
+
+/* =========================================
+   SLIDERS & MOVIE CARDS
+   ========================================= */
+.sliders {
+    height: auto;
+    margin: 100px auto 0 auto;
+    width: 90%;
+}
+
+.slider-container {
+    position: relative;
+}
+
+.slider-container h3 {
+    color: var(--lighttext);
+    font-weight: 800;
+    font-size: 23px;
+}
+
+body.dark-theme .slider-container h3 {
+    color: var(--DarkText);
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    height: 50px;
+    width: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.dark-theme .scroll-btn {
+    background-color: rgba(255, 255, 255, 0.288);
+    color: black;
+    opacity: 0;
+}
+
+.slider-container:hover .scroll-btn {
+    opacity: 1;
+}
+
+.left-arrow { left: 0; }
+.right-arrow { right: 0; }
+
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slider-movie-container {
+    display: flex;
+    margin-bottom: 25px;
+    gap: 20px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.movie-card {
+    width: 150px;
+    min-width: 150px;
+    height: 225px;
+    border: 2px solid black;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.movie-card:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.274);
+}
+
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 15px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.movie-card:hover .card-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-info h4 {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.play-btn {
+    background-color: var(--primary);
+}
+
+.add-btn {
+    background-color: white;
+    color: black;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Hero Section Media Queries */
+@media (max-width: 600px) {
+    .herosection {
+        height: 60vh;
+    }
+    #HS-writeUp h1 {
+        font-size: 28px;
+    }
+    .scroll-btn {
+        display: none !important;
+    }
+}
+
+
+/* 
+   HERO SECTION / BILLBOARD MOBILE OVERRIDES
+   */
+@media (max-width: 600px) {
+    .herosection{
+        height: 65vh;
+    }
+
+    #HS-writeUp {
+        bottom: 10%;
+        left: 15px;
+    }
+
+    #HS-writeUp h1 {
+        font-size: 24px;
+    }
+
+    /* Hide the description paragraph and action buttons on mobile */
+    #HS-writeUp p{
+        display: none !important;
+    }
+
+    .scroll-btn {
+        display: none !important;
+    }
+}

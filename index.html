@@ -11,7 +11,13 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/modals.css">
+
+
     <title>InfoHUB</title>
 </head>
 
@@ -27,7 +33,8 @@
                             class="nav-text">Home</span></a></li>
                 <li><a href="#CompletelyCaptivating_"><i class="fa-solid fa-tv nav-icon"></i> <span
                             class="nav-text">Series</span></a></li>
-                <li><a href="#FamiliarFavourite_"><i class="fa-solid fa-film nav-icon"></i> <span class="nav-text">Films</span></a></li>
+                <li><a href="#FamiliarFavourite_"><i class="fa-solid fa-film nav-icon"></i> <span
+                            class="nav-text">Films</span></a></li>
                 <li><a href="#" id="gamesNavBtn"><i class="fa-solid fa-gamepad nav-icon"></i> <span
                             class="nav-text">Games</span></a></li>
                 <li><a href="#NewOnStreamZ_"><i class="fa-solid fa-fire nav-icon"></i> <span class="nav-text">New &
@@ -58,6 +65,7 @@
                         <h4>Notifications</h4>
                         <div class="notif-list">
                             <!-- Example Notification -->
+
                             <div class="notif-item unread">
                                 <div class="notif-dot"></div>
                                 <div class="notif-text">
@@ -97,7 +105,7 @@
                             <button id="googleLoginBtn" class="auth-btn"><i class="fa-brands fa-google"></i> Sign in
                                 with Google</button>
 
-                        
+
                         </div>
 
 
@@ -302,99 +310,98 @@
         </section>
     </main>
 
-    ```html
-<footer class="site-footer">
 
-    <div class="footer-main">
+    <footer class="site-footer">
 
-        <!-- Brand -->
-        <div class="footer-brand">
+        <div class="footer-main">
 
-            <a href="#" class="footer-logo">
-                Info<span>HUB</span>
-            </a>
+            <!-- Brand -->
+            <div class="footer-brand">
 
-            <p class="footer-description">
-                Your hub for discovering stories, entertainment,
-                information and everything worth knowing.
-            </p>
-
-            <div class="social-links">
-
-                <a href="#" aria-label="Facebook">
-                    <i class="fa-brands fa-facebook-f"></i>
+                <a href="#" class="footer-logo">
+                    Info<span>HUB</span>
                 </a>
 
-                <a href="#" aria-label="Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
+                <p class="footer-description">
+                    Your hub for discovering stories, entertainment,
+                    information and everything worth knowing.
+                </p>
 
-                <a href="#" aria-label="YouTube">
-                    <i class="fa-brands fa-youtube"></i>
-                </a>
+                <div class="social-links">
+
+                    <a href="#" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="#" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Explore -->
+            <div class="footer-column">
+
+                <h3>Explore</h3>
+
+                <a href="#">Media Center</a>
+                <a href="#">Jobs</a>
+                <a href="#">Investor Relations</a>
+                <a href="#">Corporate Information</a>
+
+            </div>
+
+
+            <!-- Support -->
+            <div class="footer-column">
+
+                <h3>Support</h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Audio Description</a>
+                <a href="#">Legal Notices</a>
+
+            </div>
+
+
+            <!-- Legal -->
+            <div class="footer-column">
+
+                <h3>Legal</h3>
+
+                <a href="#">Privacy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Cookie Preferences</a>
+                <a href="#">Accessibility</a>
 
             </div>
 
         </div>
 
 
-        <!-- Explore -->
-        <div class="footer-column">
+        <div class="footer-bottom">
 
-            <h3>Explore</h3>
+            <p>
+                © 2026 <strong>InfoHUB</strong>. All rights reserved.
+            </p>
 
-            <a href="#">Media Center</a>
-            <a href="#">Jobs</a>
-            <a href="#">Investor Relations</a>
-            <a href="#">Corporate Information</a>
-
-        </div>
-
-
-        <!-- Support -->
-        <div class="footer-column">
-
-            <h3>Support</h3>
-
-            <a href="#">Help Center</a>
-            <a href="#">Contact Us</a>
-            <a href="#">Audio Description</a>
-            <a href="#">Legal Notices</a>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Cookies</a>
+            </div>
 
         </div>
 
-
-        <!-- Legal -->
-        <div class="footer-column">
-
-            <h3>Legal</h3>
-
-            <a href="#">Privacy</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Cookie Preferences</a>
-            <a href="#">Accessibility</a>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        <p>
-            © 2026 <strong>InfoHUB</strong>. All rights reserved.
-        </p>
-
-        <div class="footer-bottom-links">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Cookies</a>
-        </div>
-
-    </div>
-
-</footer>
-```
+    </footer>
 
 
     <!-- Search Overlay / Modal -->
@@ -430,18 +437,45 @@
         </div>
     </div>
 
+
+
+
+    <!-- Movie_description modal -->
     <div class="Movie_description_container" id="info-modal">
         <div class="Movie_description">
 
             <span class="close_desc" id="close-modal-btn">&times;</span>
 
-            <img src="" alt="" id="info-img">
+            <div class="modal-media">
+                <img src="" alt="" id="info-img">
+                <iframe id="info-trailer" width="250" height="375" src="" frameborder="0" allowfullscreen
+                    style="display: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);"></iframe>
+            </div>
 
             <div class="text_content">
                 <h4 class="description_title" id="info-title"></h4>
+
+                <!-- NEW: Rating and Release Row -->
+                <div class="modal-stats">
+                    <span class="stat-badge rating-badge">⭐ <span id="info-rating">0.0</span>/10</span>
+                    <span class="stat-badge release-badge" id="info-release"></span>
+                </div>
+
+                <!-- NEW: Genres Row -->
+                <p class="info-genres" id="info-genres"></p>
+
                 <p class="descrip_paragraph" id="info-desc"></p>
-                <p class="release" id="info-release"></p>
+
+                <!-- NEW: Cast Row -->
+                <p class="info-cast-container">
+                    <strong>Starring: </strong>
+                    <span id="info-cast">Loading actors...</span>
+                </p>
+
+                <button id="modal-play-btn" class="action-btn play-btn" style="margin-top: 15px; width: 100%;">▶ Watch
+                    Trailer</button>
             </div>
+
         </div>
     </div>
 
@@ -468,8 +502,9 @@
     </div>
 
 
-    <script type="module" src="index.js">
-    </script>
+    <!-- <script type="module" src="index.js"> -->
+    <script type="module" src="./javascript/main.js"></script>
+
 
 </body>
 

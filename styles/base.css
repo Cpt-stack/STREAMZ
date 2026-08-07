@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary: #00E5FF;
+    --Secondary: #FF007F;
+
+    --DarkBackground: #0B0914;
+    --DarkSurface: #161224;
+    --DarkText: #E0E0E0;
+
+    --ligthBackground: #F4F3F8;
+    --lightsurface: #FFFFFF;
+    --lighttext: #1A1A24;
+}
+
+body {
+    background-color: var(--ligthBackground);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    font-family: "Poppins", sans-serif;
+}
+
+body.dark-theme {
+    background-color: var(--DarkBackground);
+    color: var(--DarkText);
+}
+
+a {
+    text-decoration: none;
+}
+
+body.dark-theme a {
+    color: var(--DarkText);
+    transition: all 0.3 ease;
+}
+
+i {
+    font-size: 20px;
+    transition: all 0.3 ease;
+}
+
+body.dark-theme i {
+    color: white;
+}
